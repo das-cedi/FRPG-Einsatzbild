@@ -103,8 +103,30 @@ def upload():
     except RequestEntityTooLarge:
         return 'Bild ist größer als das Limit von 16MB.'
 
-    #return redirect('/')
-    return send_from_directory(app.config['RESULTS_FOLDER'], 'Einsatz_Bild.png', as_attachment=True)
+    return redirect('/preview')
+    #return send_from_directory(app.config['RESULTS_FOLDER'], 'Einsatz_Bild.png', as_attachment=True)
+
+# Test
+@app.route('/preview')
+def preview():
+    # UNNÖTIG
+    files = os.listdir(app.config['RESULTS_FOLDER'])
+
+    # files = os.listdir(app.config['UPLOAD_FOLDER'])
+    images = []
+
+    for file in files:
+        extension = os.path.splitext(file)[1].lower()
+        if extension in app.config['ALLOWED_EXTENSIONS']:
+            images.append(file)
+
+    # BIS HIER HER
+
+    return render_template('preview.html', images=images)
+
+# BIS HIER HER
+
+
 
 # UNNÖTIG
 @app.route('/serve-image/<filename>', methods=['GET'])

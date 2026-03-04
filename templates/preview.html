@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{{  url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+        <title>FRPG Einsatzbild</title>
+        <link rel="icon" type="image/png" href="../static/img/frpg-logo.png">
+
+        <link rel="manifest" href="/static/manifest.json">
+        <!-- IOS-Support -->
+        <link rel="apple-touch-icon" href="/static/icons/icon-512.png">
+        <meta name="apple-mobile-web-app-status-bar" content="#00407f">
+        <meta name="theme-color" content="#00407f">
+    </head>
+    <body>
+        <h1>Einsatzbild Vorschau</h1>
+
+        {%  for image in images %}
+            <div class="result-picture-container">
+                <img src="{{ url_for('serve_image', filename=image) }}" alt="Einsatz Bild" class="result-picture">
+            </div>
+        {% endfor %}
+        <a href="/">
+            <button type="submit" class="submit-btn" >Zurück</button>
+        </a>
+
+
+        <script>
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('/static/service-worker.js');
+            }
+        </script>
+    </body>
+</html>
+
