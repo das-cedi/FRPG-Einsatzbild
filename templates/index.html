@@ -17,7 +17,7 @@
     <body>
         <h1>Einsatzbild erstellen</h1>
 
-        <form action="/upload" method="post" enctype="multipart/form-data">
+        <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
 
             <!-- Upload Bereich -->
             <div class="form-group">
@@ -40,6 +40,7 @@
                             <span id="uploadLabel">Bild auswählen</span>
                         </div>
                     </div>
+                    <img id="previewImage">
                 </label>
             </div>
 
@@ -62,10 +63,36 @@
 
             <button type="submit" class="submit-btn">Weiter</button>
         </form>
+
+        <div id="loading-screen">
+            <div class="spinner"></div>
+            <p>Bild wird verarbeitet</p>
+        </div>
+
         <script>
             if ('serviceWorker' in navigator) {
               navigator.serviceWorker.register('/static/service-worker.js');
             }
+
+            document.getElementById("uploadForm").addEventListener("submit", function () {
+                document.getElementById("loading-screen").style.display = "flex";
+            });
+
+            // TEST
+
+            const fileInput = document.getElementById("fileInput");
+            const preview = document.getElementById("previewImage");
+
+            fileInput.addEventListener("change", function() {
+
+                const file = this.files[0];
+
+                if (file) {
+                    preview.src = URL.createObjectURL(file);
+                    preview.style.display = "block";
+                }
+
+            });
         </script>
     </body>
 </html>

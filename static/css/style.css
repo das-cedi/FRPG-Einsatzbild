@@ -132,6 +132,7 @@ h1 {
   h1 {
     font-size: 2rem;
     margin-top: 2rem;
+    text-align: center;
   }
 
   form {
@@ -139,31 +140,32 @@ h1 {
     flex-direction: column;
   }
 
-  h1 {
-    text-align: center;
-  }
-
   .upload-container {
-    display: block;
+    position: relative;
+    height: 150px;
+
     border: 2px dashed #00407f;
     border-radius: 12px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
 
-    background-color: rgba(0, 64, 127, 0.1);
+    overflow: hidden;
   }
 
   .upload-container:hover {
     background-color: rgba(0, 64, 127, 0.2);
   }
 
+  /* Zentrierung */
   .upload-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+      position: absolute;
+      inset: 0;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* vertikal */
+      align-items: center;     /* horizontal */
+
+      text-align: center;
+      gap: 8px;
   }
 
   .upload-icon {
@@ -178,6 +180,18 @@ h1 {
     color: #00407f;
   }
 
+  /* Preview Bild darüber */
+  #previewImage {
+      position: absolute;
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      display: none;
+  }
+
 
   /* FÜR SELECTION */
   .form-group {
@@ -190,7 +204,7 @@ h1 {
     margin-bottom: 20px;
     font-weight: 500;
     color: #00407f;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 
 
@@ -234,7 +248,7 @@ h1 {
     border: none;
     border-radius: 12px;
 
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 600;
 
     background-color: #00407f;
@@ -268,5 +282,35 @@ h1 {
   .result-picture {
     width: 90%;
     align-items: center;
+  }
+
+  /* Loading Screen test */
+  #loading-screen {
+    position: fixed;
+    inset: 0;
+    background: white;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+  }
+
+  #loading-screen p {
+    font-size: 1.5rem;
+    color: #00407f;
+  }
+
+  .spinner {
+      width: 60px;
+      height: 60px;
+      border: 7px solid rgba(0, 64, 127, 0.3);;
+      border-top: 7px solid #00407f;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+      to { transform: rotate(360deg); }
   }
 }
